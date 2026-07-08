@@ -9,7 +9,7 @@ export function PillButton({ className, children, ...props }: PillButtonProps) {
   return (
     <button
       className={cn(
-        "inline-flex items-center justify-center rounded-full bg-ink px-5 py-3 text-sm uppercase tracking-[0.24em] text-canvas transition-colors hover:bg-black",
+        "pill-button motion-safe-fade",
         className
       )}
       {...props}
