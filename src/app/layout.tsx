@@ -1,14 +1,12 @@
-import type { Metadata } from "next";
-
 import { SiteNavigation } from "@/components/navigation/site-navigation";
 
 import "./globals.css";
 
-export const metadata: Metadata = {
-  title: "Editorial GSAP Navigation",
-  description:
-    "Learning project with Next.js App Router, Tailwind, TypeScript, and GSAP navigation drawer."
-};
+export const metadata = {
+    title: "Videographer Portfolio",
+    description:
+        "Editorial portfolio website for a videographer, featuring selected films, cinematic case studies, services, and contact information."
+}
 
 export default function RootLayout({
   children
