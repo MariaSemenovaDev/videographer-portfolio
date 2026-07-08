@@ -11,11 +11,7 @@ export function HeroSection() {
       </div>
 
       <div className="flex flex-col justify-end gap-6">
-        <p className="max-w-md text-base leading-7 text-muted">
-          This project mirrors the structure and interaction mindset of the
-          original demo while reserving clear placeholders for custom media,
-          layouts, and future design files.
-        </p>
+        <p className="max-w-md text-base leading-7 text-muted">bla bla bla</p>
         <div className="border border-border bg-white/45 p-6">
           <p className="text-xs uppercase tracking-[0.24em] text-muted">
             asset placeholder
