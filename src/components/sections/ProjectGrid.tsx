@@ -1,5 +1,4 @@
-import Link from "next/link";
-
+import { TransitionLink } from "@/components/shared/PageTransitionShell";
 import { Reveal } from "@/components/shared/Reveal";
 import { MediaFrame } from "@/components/shared/media-frame";
 import { projectCards } from "@/data/projects";
@@ -25,9 +24,9 @@ export function ProjectGrid() {
               </div>
               <p className="meta-text">{project.summary}</p>
               <div>
-                <Link className="pill-button" href={project.href}>
+                <TransitionLink className="pill-button" href={project.href}>
                   Open Project
-                </Link>
+                </TransitionLink>
               </div>
             </div>
           </article>

@@ -255,6 +255,23 @@ select {
   outline-offset: 3px;
 }
 
+.wordmark-svg {
+  display: block;
+  width: 100%;
+  overflow: visible;
+  mix-blend-mode: multiply;
+}
+
+.wordmark-svg__line {
+  font-family: var(--font-display);
+  font-size: clamp(2rem, 7.8vw, 6.3rem);
+  font-weight: 300;
+  letter-spacing: -0.085em;
+  opacity: 0.22;
+  text-anchor: middle;
+  white-space: pre;
+}
+
 .motion-safe-reveal {
   opacity: 0;
   transform: translateY(24px);

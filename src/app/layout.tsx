@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 
 import { SiteHeader } from "@/components/navigation/SiteHeader";
+import { PageTransitionProvider } from "@/components/shared/PageTransitionShell";
 
 import "./globals.css";
 
@@ -22,8 +23,10 @@ export default function RootLayout({
   return (
     <html lang="ru">
       <body className="editorial-theme">
-        <SiteHeader />
-        {children}
+        <PageTransitionProvider>
+          <SiteHeader />
+          {children}
+        </PageTransitionProvider>
       </body>
     </html>
   );

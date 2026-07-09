@@ -28,7 +28,7 @@ export const siteContent = {
       secondaryAsset: {
         alt: "Плейсхолдер шоурила для главного экрана",
         kind: "video",
-        src: "/media/hero-showreel.webm"
+        src: "/media/home-background.webm"
       },
       summary:
         "Спокойная основа портфолио для фильмов, портретов, заметок о процессе и избранных работ.",

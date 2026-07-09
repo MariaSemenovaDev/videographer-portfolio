@@ -1,5 +1,4 @@
-import Link from "next/link";
-
+import { TransitionLink } from "@/components/shared/PageTransitionShell";
 import { Reveal } from "@/components/shared/Reveal";
 import { processSteps } from "@/data/process";
 import { siteContent } from "@/data/site";
@@ -29,9 +28,12 @@ export function AccentCard() {
         <div className="grid content-between gap-6">
           <p className="meta-text max-w-sm">{siteContent.contact.intro}</p>
           <div>
-            <Link className="pill-button" href={siteContent.contact.ctaRoute}>
+            <TransitionLink
+              className="pill-button"
+              href={siteContent.contact.ctaRoute}
+            >
               {siteContent.contact.ctaLabel}
-            </Link>
+            </TransitionLink>
           </div>
         </div>
       </aside>

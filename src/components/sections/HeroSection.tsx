@@ -1,6 +1,5 @@
-import Link from "next/link";
-
 import { Reveal } from "@/components/shared/Reveal";
+import { TransitionLink } from "@/components/shared/PageTransitionShell";
 import { MediaFrame } from "@/components/shared/media-frame";
 import { siteContent } from "@/data/site";
 
@@ -9,10 +8,10 @@ export function HeroSection() {
 
   return (
     <section className="grid gap-10 border-b border-border pb-14 sm:gap-12 sm:pb-18">
-      <div className="page-container grid gap-8 pt-28 sm:pt-32 lg:gap-12 lg:pt-36">
+      <div className="page-container grid gap-8 pt-10 sm:pt-12 lg:gap-12 lg:pt-14">
         <Reveal className="space-y-5">
           <p className="eyebrow">{hero.eyebrow}</p>
-          <h1 className="display-title max-w-[12ch] text-balance">
+          <h1 className="display-title max-w-[14ch] !text-[clamp(1.8rem,3.8vw,3.4rem)] text-balance">
             {hero.title}
           </h1>
           <div className="grid gap-6 lg:grid-cols-[minmax(0,1fr)_minmax(280px,0.72fr)] lg:items-start">
@@ -20,9 +19,9 @@ export function HeroSection() {
               {hero.summary}
             </p>
             <div className="flex flex-wrap gap-3 lg:justify-self-end">
-              <Link className="pill-button" href={ctaRoute}>
+              <TransitionLink className="pill-button" href={ctaRoute}>
                 {ctaLabel}
-              </Link>
+              </TransitionLink>
             </div>
           </div>
         </Reveal>
