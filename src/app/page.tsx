@@ -26,6 +26,16 @@ const stats = [
 export default function Home() {
   const [scrollY, setScrollY] = useState(0);
 
+  // ==========================================
+  // НАСТРОЙКА ВЫСОТЫ ВИДЕО
+  const videoHeight = "150vh";
+
+  // НАСТРОЙКА ОТСТУПА ТЕКСТА ПОД ПЛАШКУ (в пикселях):
+  // Увеличил дефолтный отступ до 580, так как мы дали плашке больше высоты ради буквы Й
+  const marginTopMobile = 280;
+  const marginTopDesktop = 400;
+  // ==========================================
+
   useEffect(() => {
     const handleScroll = () => {
       setScrollY(window.scrollY);
@@ -34,59 +44,68 @@ export default function Home() {
     return () => window.removeEventListener("scroll", handleScroll);
   }, []);
 
-  // Высота скролла, за которую плашка полностью скроется
-  const scrollRange = 400;
-  const transformY = Math.min(scrollY, scrollRange);
+  // Скорость уезда белой плашки с именем (скроется за первые 400px)
+  const transformY = Math.min(scrollY, 400);
 
   return (
       <div>
-        {/* ПЕРВЫЙ ЭКРАН: Высота складывается из экрана и запаса под анимацию плашки */}
-        <section style={{ height: `calc(100vh + ${scrollRange}px)` }} className="relative overflow-hidden">
+        {/* ПЕРВЫЙ ЭКРАН */}
+        <section className="relative w-full overflow-hidden z-10">
 
-          {/* ВИДЕО И ТАГЛАЙН: Намертво зафиксированы на фоне экрана (на нижнем слое z-0) */}
-          <div className="fixed inset-0 h-screen w-full overflow-hidden z-0">
+          {/* ВИДЕО-КОНТЕЙНЕР */}
+          <div style={{ height: videoHeight }} className="relative w-full overflow-hidden">
             <video
                 loop
                 autoPlay
                 muted
                 playsInline
                 src="showreel.mp4"
-                className="absolute inset-0 -z-10 h-full w-full object-cover"
+                className="absolute inset-0 h-full w-full object-cover"
             />
 
-            {/* Твой нижний блок с таглайном и интро — прибит к низу экрана и не двигается */}
-            <div className="absolute bottom-0 left-0 w-full flex min-h-[72vh] items-end text-white">
-              <div className="px-6 py-18 md:px-10 lg:px-14">
-                <p className="text-xl md:text-2xl">{siteMeta.city}</p>
-                <h2 className="mt-4 max-w-4xl text-4xl font-medium leading-[0.95] md:text-6xl lg:text-7xl">
+            {/* ТАГЛАЙН И ИНТРО */}
+            <div className="absolute inset-0 w-full h-full text-white z-10 pointer-events-none">
+
+              {/* Контейнер с нашими кастомными отступами */}
+              <div
+                  style={{
+                    "--pt-mobile": `${marginTopMobile}px`,
+                    "--pt-desktop": `${marginTopDesktop}px`,
+                  } as React.CSSProperties}
+                  className="px-6 pt-[var(--pt-mobile)] md:px-10 md:pt-[var(--pt-desktop)] lg:px-14 pointer-events-auto"
+              >
+                <p className="text-xl md:text-2xl font-medium tracking-wide drop-shadow-md text-white/90">
+                  {siteMeta.city}
+                </p>
+                <h2 className="mt-4 max-w-4xl text-4xl font-medium leading-[0.95] md:text-6xl lg:text-7xl drop-shadow-lg">
                   {siteMeta.tagline}
                 </h2>
-                <p className="mt-8 max-w-2xl text-lg leading-relaxed text-white/80 md:text-xl">{siteMeta.intro}</p>
               </div>
+
             </div>
           </div>
 
-          {/* ВЕРХНЯЯ ПЛАШКА: Зафиксирована на z-10 и уезжает наверх независимо от остального экрана */}
+          {/* ВЕРХНЯЯ ПЛАШКА (ВЕРТЕЛЕЦКИЙ МАКСИМ) */}
           <div
               style={{
                 transform: `translateY(-${transformY}px)`,
-                transition: "transform 0.05s linear" // Микро-сглаживание, чтобы скролл не дергался
+                transition: "transform 0.05s linear"
               }}
-              className="fixed top-0 left-0 w-full z-10 mix-blend-screen bg-white p-4 pb-8 backdrop-blur-2xl md:p-8 md:pb-12"
+              // Добавили хороший pt-12 (на десктопах) для гарантированного запаса сверху
+              className="fixed top-0 left-0 w-full z-20 mix-blend-screen bg-white p-4 pt-8 pb-8 backdrop-blur-2xl md:p-8 md:pt-14 md:pb-12"
           >
-            <h1 className="flex max-w-[7ch] flex-col text-black uppercase font-black leading-[0.72] tracking-[0.01em] text-5xl [transform:scaleY(1.18)] [transform-origin:left_top] md:text-[6.5rem] lg:text-[8.5rem]">
+
+            <h1 className="flex max-w-[7ch] flex-col text-black uppercase font-black leading-none tracking-[0.01em] text-5xl pr-4 [transform:scaleY(1.18)] [transform-origin:left_top] md:text-[6.5rem] lg:text-[8.5rem]">
               <span>ВЕРТЕЛЕЦКИЙ</span>
-              <span>МАКСИМ</span>
+              {/* -mt-[0.18em] подтягивает имя вверх к фамилии, имитируя плотный leading, но без обрезки шрифта */}
+              <span className="-mt-[0.15em] md:-mt-[0.25em]">МАКСИМ</span>
             </h1>
           </div>
 
         </section>
 
-        {/* СЛЕДУЮЩИЕ СЕКЦИИ: margin-top убирает пустоту, заставляя блок наезжать на видео сразу за плашкой */}
-        <section
-            style={{ marginTop: `-${scrollRange}px` }}
-            className="relative z-20 min-h-screen bg-[#fffef7] px-6 py-24 md:px-10 lg:px-14"
-        >
+        {/* СЛЕДУЮЩИЕ СЕКЦИИ */}
+        <section className="relative z-20 min-h-screen bg-[#fffef7] px-6 py-24 md:px-10 lg:px-14">
           <p className="text-xl uppercase">Что я делаю</p>
           <h2 className="mt-8 flex flex-col text-4xl leading-[1] md:text-6xl">
             <span>Я работаю с кадром, светом,</span>
@@ -146,8 +165,8 @@ export default function Home() {
                     <div className="mt-6 flex flex-wrap gap-3">
                       {project.tags.map((tag) => (
                           <span key={tag} className="rounded-full border border-black/10 px-4 py-2 text-sm uppercase tracking-[0.12em] text-black/55">
-                    {tag}
-                  </span>
+                      {tag}
+                    </span>
                       ))}
                     </div>
                   </article>

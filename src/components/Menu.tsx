@@ -73,7 +73,7 @@ function MenuContent({ pathname }: { pathname: string }) {
 
   return (
     <div ref={containerRef} className="relative z-999 w-full text-white">
-      <div className="fixed inset-x-0 top-0 flex items-center justify-between p-4 md:p-8">
+      <div className="fixed inset-x-0 top-0 flex items-center justify-between bg-white p-4 md:p-8">
         <Link
           href="/"
           className="flex h-12 w-12 items-center justify-center rounded-full bg-black text-sm font-medium uppercase text-white"
