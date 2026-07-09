@@ -1,9 +1,9 @@
-import { routes } from "@/lib/routes";
+import { routes, type AppRoute } from "@/lib/routes";
 import type { MediaAsset } from "@/lib/placeholders";
 
 export type ProjectCard = {
   asset: MediaAsset;
-  href: string;
+  href: AppRoute;
   id: string;
   label: string;
   summary: string;
@@ -22,8 +22,8 @@ export const projectCards: ProjectCard[] = [
   {
     asset: {
       alt: "Плейсхолдер изображения для проекта 01",
-      kind: "image",
-      src: "/media/project-01.jpg"
+      kind: "video",
+      src: "/media/project-01.webm"
     },
     href: routes.projects,
     id: "project-01",
@@ -35,8 +35,8 @@ export const projectCards: ProjectCard[] = [
   {
     asset: {
       alt: "Плейсхолдер изображения для проекта 02",
-      kind: "image",
-      src: "/media/project-02.jpg"
+      kind: "video",
+      src: "/media/project-02.webm"
     },
     href: routes.projects,
     id: "project-02",
@@ -48,8 +48,8 @@ export const projectCards: ProjectCard[] = [
   {
     asset: {
       alt: "Плейсхолдер изображения для проекта 03",
-      kind: "image",
-      src: "/media/project-03.jpg"
+      kind: "video",
+      src: "/media/project-03.webm"
     },
     href: routes.projects,
     id: "project-03",
@@ -61,8 +61,8 @@ export const projectCards: ProjectCard[] = [
   {
     asset: {
       alt: "Плейсхолдер изображения для проекта 04",
-      kind: "image",
-      src: "/media/project-04.jpg"
+      kind: "video",
+      src: "/media/project-04.webm"
     },
     href: routes.projects,
     id: "project-04",
@@ -74,8 +74,8 @@ export const projectCards: ProjectCard[] = [
   {
     asset: {
       alt: "Плейсхолдер изображения для проекта 05",
-      kind: "image",
-      src: "/media/project-05.jpg"
+      kind: "video",
+      src: "/media/project-05.webm"
     },
     href: routes.projects,
     id: "project-05",
@@ -87,8 +87,8 @@ export const projectCards: ProjectCard[] = [
   {
     asset: {
       alt: "Плейсхолдер изображения для проекта 06",
-      kind: "image",
-      src: "/media/project-06.jpg"
+      kind: "video",
+      src: "/media/project-06.webm"
     },
     href: routes.projects,
     id: "project-06",

@@ -17,45 +17,45 @@ type ResolvedMediaAsset =
   | (MediaAsset & PlaceholderDescriptor & { available: false });
 
 const placeholderRegistry: Record<string, PlaceholderDescriptor> = {
-  "/media/hero-poster.jpg": {
-    aspectRatio: "portrait",
-    label: "Hero poster placeholder",
-    note: "Original cover image not attached."
+  "/media/hero-poster.mp4": {
+    aspectRatio: "video",
+    label: "Hero poster video placeholder",
+    note: "Original cover video not attached."
   },
   "/media/hero-showreel.mp4": {
     aspectRatio: "video",
     label: "Hero showreel placeholder",
     note: "Original showreel file not attached."
   },
-  "/media/project-01.jpg": {
-    aspectRatio: "portrait",
-    label: "Project 01 placeholder",
-    note: "Original project still not attached."
+  "/media/project-01.mp4": {
+    aspectRatio: "video",
+    label: "Project 01 video placeholder",
+    note: "Original project video not attached."
   },
-  "/media/project-02.jpg": {
-    aspectRatio: "portrait",
-    label: "Project 02 placeholder",
-    note: "Original project still not attached."
+  "/media/project-02.mp4": {
+    aspectRatio: "video",
+    label: "Project 02 video placeholder",
+    note: "Original project video not attached."
   },
-  "/media/project-03.jpg": {
-    aspectRatio: "portrait",
-    label: "Project 03 placeholder",
-    note: "Original project still not attached."
+  "/media/project-03.mp4": {
+    aspectRatio: "video",
+    label: "Project 03 video placeholder",
+    note: "Original project video not attached."
   },
-  "/media/project-04.jpg": {
-    aspectRatio: "portrait",
-    label: "Project 04 placeholder",
-    note: "Original project still not attached."
+  "/media/project-04.mp4": {
+    aspectRatio: "video",
+    label: "Project 04 video placeholder",
+    note: "Original project video not attached."
   },
-  "/media/project-05.jpg": {
-    aspectRatio: "portrait",
-    label: "Project 05 placeholder",
-    note: "Original project still not attached."
+  "/media/project-05.mp4": {
+    aspectRatio: "video",
+    label: "Project 05 video placeholder",
+    note: "Original project video not attached."
   },
-  "/media/project-06.jpg": {
-    aspectRatio: "portrait",
-    label: "Project 06 placeholder",
-    note: "Original project still not attached."
+  "/media/project-06.mp4": {
+    aspectRatio: "video",
+    label: "Project 06 video placeholder",
+    note: "Original project video not attached."
   }
 };
 

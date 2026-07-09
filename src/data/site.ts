@@ -19,8 +19,8 @@ export const siteContent = {
     hero: {
       asset: {
         alt: "Плейсхолдер постера для главного экрана",
-        kind: "image",
-        src: "/media/hero-poster.jpg"
+        kind: "video",
+        src: "/media/hero-poster.webm"
       },
       caption: "Избранные фильмы, тишина, движение и свободное пространство.",
       eyebrow: "Авторское видеопортфолио",
@@ -28,7 +28,7 @@ export const siteContent = {
       secondaryAsset: {
         alt: "Плейсхолдер шоурила для главного экрана",
         kind: "video",
-        src: "/media/hero-showreel.mp4"
+        src: "/media/hero-showreel.webm"
       },
       summary:
         "Спокойная основа портфолио для фильмов, портретов, заметок о процессе и избранных работ.",
