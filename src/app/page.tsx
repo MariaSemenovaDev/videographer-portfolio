@@ -1,197 +1,149 @@
-"use client"; // Обязательно добавляем для работы с useEffect и useState
+"use client";
 
-import { useEffect, useState } from "react";
+import { useEffect, useState, useRef } from "react";
+import Link from "next/link";
 import HorizontalScrollSection from "@/components/HorizontalScrollSection";
 import { CameraIcon, TimelineIcon, ViewfinderIcon } from "@/components/icons";
 import { featuredProjects, journalEntries, siteMeta } from "@/content/site";
 
 const stats = [
-  {
-    value: "5+",
-    text: "лет работы с кадром, светом, движением и монтажом.",
-    icon: CameraIcon,
-  },
-  {
-    value: "100+",
-    text: "историй, собранных в атмосферные видео и короткие фильмы.",
-    icon: ViewfinderIcon,
-  },
-  {
-    value: "20+",
-    text: "проектов для людей, брендов и событий с вниманием к деталям.",
-    icon: TimelineIcon,
-  },
+  { value: "5+", text: "лет работы с кадром, светом, движением и монтажом.", icon: CameraIcon },
+  { value: "100+", text: "историй, собранных в атмосферные видео и короткие фильмы.", icon: ViewfinderIcon },
+  { value: "20+", text: "проектов для людей, брендов и событий с вниманием к деталям.", icon: TimelineIcon },
 ];
 
 export default function Home() {
   const [scrollY, setScrollY] = useState(0);
 
-  // ==========================================
-  // НАСТРОЙКА ВЫСОТЫ ВИДЕО
-  const videoHeight = "150vh";
+  // Рефы для всех секций
+  const aboutSectionRef = useRef<HTMLElement>(null);
+  const weddingsRef = useRef<HTMLElement>(null);
+  const reportageRef = useRef<HTMLElement>(null);
 
-  // НАСТРОЙКА ОТСТУПА ТЕКСТА ПОД ПЛАШКУ (в пикселях):
-  // Увеличил дефолтный отступ до 580, так как мы дали плашке больше высоты ради буквы Й
-  const marginTopMobile = 280;
-  const marginTopDesktop = 400;
-  // ==========================================
+  // Стейты анимаций
+  const [isAboutAnimate, setIsAboutAnimate] = useState(false);
+  const [isWeddingsAnimate, setIsWeddingsAnimate] = useState(false);
+  const [isReportageAnimate, setIsReportageAnimate] = useState(false);
 
   useEffect(() => {
-    const handleScroll = () => {
-      setScrollY(window.scrollY);
-    };
+    const handleScroll = () => setScrollY(window.scrollY);
     window.addEventListener("scroll", handleScroll, { passive: true });
-    return () => window.removeEventListener("scroll", handleScroll);
+
+    const observer = new IntersectionObserver(
+        (entries) => {
+          entries.forEach((entry) => {
+            if (entry.target === aboutSectionRef.current) setIsAboutAnimate(entry.isIntersecting);
+            if (entry.target === weddingsRef.current) setIsWeddingsAnimate(entry.isIntersecting);
+            if (entry.target === reportageRef.current) setIsReportageAnimate(entry.isIntersecting);
+          });
+        },
+        { threshold: 0.15 }
+    );
+
+    [aboutSectionRef, weddingsRef, reportageRef].forEach((ref) => {
+      if (ref.current) observer.observe(ref.current);
+    });
+
+    return () => {
+      window.removeEventListener("scroll", handleScroll);
+      observer.disconnect();
+    };
   }, []);
 
-  // Скорость уезда белой плашки с именем (скроется за первые 400px)
   const transformY = Math.min(scrollY, 400);
 
   return (
       <div>
-        {/* ПЕРВЫЙ ЭКРАН */}
+        {/* 1. HERO */}
         <section className="relative w-full overflow-hidden z-10">
-
-          {/* ВИДЕО-КОНТЕЙНЕР */}
-          <div style={{ height: videoHeight }} className="relative w-full overflow-hidden">
-            <video
-                loop
-                autoPlay
-                muted
-                playsInline
-                src="showreel.mp4"
-                className="absolute inset-0 h-full w-full object-cover"
-            />
-
-            {/* ТАГЛАЙН И ИНТРО */}
+          <div style={{ height: "150vh" }} className="relative w-full overflow-hidden">
+            <video loop autoPlay muted playsInline src="showreel.mp4" className="absolute inset-0 h-full w-full object-cover" />
             <div className="absolute inset-0 w-full h-full text-white z-10 pointer-events-none">
-
-              {/* Контейнер с нашими кастомными отступами */}
-              <div
-                  style={{
-                    "--pt-mobile": `${marginTopMobile}px`,
-                    "--pt-desktop": `${marginTopDesktop}px`,
-                  } as React.CSSProperties}
-                  className="px-6 pt-[var(--pt-mobile)] md:px-10 md:pt-[var(--pt-desktop)] lg:px-14 pointer-events-auto"
-              >
-                <p className="text-xl md:text-2xl font-medium tracking-wide drop-shadow-md text-white/90">
-                  {siteMeta.city}
-                </p>
-                <h2 className="mt-4 max-w-4xl text-4xl font-medium leading-[0.95] md:text-6xl lg:text-7xl drop-shadow-lg">
-                  {siteMeta.tagline}
-                </h2>
+              <div className="px-6 pt-[280px] md:px-10 md:pt-[400px] lg:px-14 pointer-events-auto">
+                <p className="text-xl md:text-2xl font-medium tracking-wide drop-shadow-md text-white/90">{siteMeta.city}</p>
+                <h2 className="mt-4 max-w-4xl text-4xl font-medium leading-[0.95] md:text-6xl lg:text-7xl drop-shadow-lg">{siteMeta.tagline}</h2>
               </div>
-
             </div>
           </div>
 
-          {/* ВЕРХНЯЯ ПЛАШКА (ВЕРТЕЛЕЦКИЙ МАКСИМ) */}
-          <div
-              style={{
-                transform: `translateY(-${transformY}px)`,
-                transition: "transform 0.05s linear"
-              }}
-              // Добавили хороший pt-12 (на десктопах) для гарантированного запаса сверху
-              className="fixed top-0 left-0 w-full z-20 mix-blend-screen bg-white p-4 pt-8 pb-8 backdrop-blur-2xl md:p-8 md:pt-14 md:pb-12"
-          >
-
+          <div style={{ transform: `translateY(-${transformY}px)`, transition: "transform 0.05s linear" }} className="fixed top-0 left-0 w-full z-20 mix-blend-screen bg-white p-4 pt-8 pb-8 backdrop-blur-2xl md:p-8 md:pt-14 md:pb-12">
             <h1 className="flex max-w-[7ch] flex-col text-black uppercase font-black leading-none tracking-[0.01em] text-5xl pr-4 [transform:scaleY(1.18)] [transform-origin:left_top] md:text-[6.5rem] lg:text-[8.5rem]">
               <span>ВЕРТЕЛЕЦКИЙ</span>
-              {/* -mt-[0.18em] подтягивает имя вверх к фамилии, имитируя плотный leading, но без обрезки шрифта */}
               <span className="-mt-[0.15em] md:-mt-[0.25em]">МАКСИМ</span>
             </h1>
           </div>
-
         </section>
 
-        {/* СЛЕДУЮЩИЕ СЕКЦИИ */}
-        <section className="relative z-20 min-h-screen bg-[#fffef7] px-6 py-24 md:px-10 lg:px-14">
-          <p className="text-xl uppercase">Что я делаю</p>
-          <h2 className="mt-8 flex flex-col text-4xl leading-[1] md:text-6xl">
-            <span>Я работаю с кадром, светом,</span>
-            <span>движением и монтажом.</span>
-            <span>Снимаю людей, события и бренды,</span>
-            <span>превращая важные моменты</span>
-            <span>в живое атмосферное кино.</span>
+        {/* 2. ЧТО Я ДЕЛАЮ */}
+        <section ref={aboutSectionRef} className="relative z-20 min-h-screen bg-[#fffef7] px-6 py-28 md:px-10 lg:px-14 overflow-hidden">
+          <p className="text-sm uppercase tracking-[0.2em] text-black/40">Что я делаю</p>
+          <h2 className="mt-10 flex flex-col text-3xl font-medium leading-[1.1] tracking-tight md:text-5xl lg:text-6xl text-black">
+            {["Я работаю с кадром, светом,", "движением и монтажом.", "Снимаю людей, события и бренды,", "превращая важные моменты", "в живое атмосферное кино."].map((line, i) => (
+                <span key={i} className={`transition-all duration-[1000ms] delay-[${i * 150}ms] ease-[cubic-bezier(0.16,1,0.3,1)] ${isAboutAnimate ? "translate-y-0 opacity-100" : "translate-y-8 opacity-0"}`}>
+              {line}
+            </span>
+            ))}
           </h2>
-
-          <div className="mx-auto mt-20 max-w-5xl text-2xl text-black/60">
-            <p>{siteMeta.intro}</p>
-
-            <div className="mt-18 grid gap-10 lg:grid-cols-3">
-              {stats.map((item) => {
-                const Icon = item.icon;
-
-                return (
-                    <div key={item.value} className="flex max-w-sm flex-col gap-2 text-black">
-                      <div className="flex gap-2">
-                  <span className="size-15">
-                    <Icon />
-                  </span>
-                        <span className="text-6xl">{item.value}</span>
-                      </div>
-                      <p className="mt-8 text-xl text-black/60">{item.text}</p>
-                    </div>
-                );
-              })}
-            </div>
-          </div>
         </section>
 
         <HorizontalScrollSection />
 
-        <section className="relative z-20 bg-[#f3efe8] px-6 py-24 md:px-10 lg:px-14">
-          <div className="mx-auto grid max-w-7xl gap-14 lg:grid-cols-[0.8fr_1.2fr]">
-            <div>
-              <p className="text-xl uppercase">Избранные проекты</p>
-              <h2 className="mt-6 text-4xl leading-[0.96] md:text-6xl">
-                Работаю с историями, в которых важны люди, характер и ощущение времени.
-              </h2>
-            </div>
+        {/* 4. СВАДЕБНОЕ КИНО (С ФОНОВЫМ ИЗОБРАЖЕНИЕМ) */}
+        <section
+            ref={weddingsRef}
+            className="relative z-20 px-6 py-28 md:px-10 lg:px-14 border-t border-black/5 bg-cover bg-center"
+            style={{ backgroundImage: "url('https://i.pinimg.com/736x/a2/52/ba/a252ba3353d45723ebcd5b5430b00a42.jpg')" }}
+        >
+          {/* Затемнение фона для читаемости текста */}
+          <div className="absolute inset-0 bg-[#fffef7]/80 backdrop-blur-[2px]"></div>
 
-            <div className="grid gap-6">
-              {featuredProjects.map((project) => (
-                  <article key={project.slug} className="rounded-[2rem] bg-white p-8">
-                    <div className="flex flex-wrap items-start justify-between gap-4">
-                      <div>
-                        <p className="text-sm uppercase tracking-[0.16em] text-black/45">
-                          {project.category} / {project.year}
-                        </p>
-                        <h3 className="mt-3 text-3xl">{project.title}</h3>
-                      </div>
-                      <p className="text-sm uppercase tracking-[0.16em] text-black/45">{project.location}</p>
-                    </div>
-                    <p className="mt-6 max-w-2xl text-lg leading-relaxed text-black/65">{project.description}</p>
-                    <div className="mt-6 flex flex-wrap gap-3">
-                      {project.tags.map((tag) => (
-                          <span key={tag} className="rounded-full border border-black/10 px-4 py-2 text-sm uppercase tracking-[0.12em] text-black/55">
-                      {tag}
-                    </span>
-                      ))}
-                    </div>
-                  </article>
-              ))}
+          <div className={`relative z-10 mx-auto max-w-7xl transition-all duration-[1000ms] ${isWeddingsAnimate ? "opacity-100" : "opacity-0 translate-y-10"}`}>
+            <p className="text-sm uppercase tracking-[0.2em] text-black/60">Свадьба</p>
+            <div className="mt-8 flex flex-col lg:flex-row lg:items-end lg:justify-between gap-10">
+              <div className="max-w-4xl">
+                <h2 className="text-4xl leading-[0.95] md:text-6xl lg:text-7xl tracking-tight text-black">
+                  Истории, которые <br /> хочется пересматривать.
+                </h2>
+                <p className="mt-8 max-w-2xl text-xl md:text-2xl font-light leading-relaxed text-black/80">
+                  Свадебные фильмы как полноценный кинематограф. Где важны не только красивые планы, но и живая интонация пары, атмосфера пространства и неуловимое движение внутри момента.
+                </p>
+              </div>
+              <Link href="/weddings" className="group flex items-center justify-center gap-4 bg-black text-white px-8 py-5 rounded-full text-sm uppercase tracking-widest font-medium transition-all hover:bg-black/80 w-full sm:w-max">
+                Смотреть свадебные фильмы →
+              </Link>
             </div>
           </div>
         </section>
 
-        <section className="relative z-20 bg-black px-6 py-24 text-white md:px-10 lg:px-14">
-          <div className="mx-auto max-w-7xl">
-            <div className="flex flex-col gap-6 lg:flex-row lg:items-end lg:justify-between">
-              <div>
-                <p className="text-xl uppercase text-white/55">Журнал</p>
-                <h2 className="mt-5 max-w-3xl text-4xl leading-[0.96] md:text-6xl">
-                  Наблюдения о съёмке, монтаже и том, как рождается атмосферное видео.
-                </h2>
+        {/* 5. РЕПОРТАЖ */}
+        <section ref={reportageRef} className="relative z-20 bg-black px-6 py-28 text-white md:px-10 lg:px-14">
+          <div className={`transition-all duration-[1000ms] ${isReportageAnimate ? "opacity-100" : "opacity-0 translate-y-10"}`}>
+
+            {/* Заголовок и кнопка */}
+            <div className="flex flex-col lg:flex-row lg:items-end lg:justify-between gap-10">
+              <div className="max-w-4xl">
+                <p className="text-sm uppercase tracking-[0.2em] text-white/45">Репортаж</p>
+                <h2 className="mt-6 text-4xl leading-[0.95] md:text-6xl tracking-tight">Фиксация чистой энергии момента.</h2>
               </div>
+
+              <Link
+                  href="/reportage"
+                  className="group flex items-center justify-center gap-4 border border-white/20 text-white px-8 py-5 rounded-full text-sm uppercase tracking-widest font-medium transition-all hover:bg-white hover:text-black w-full sm:w-max shrink-0"
+              >
+                Все репортажи <span className="transition-transform duration-300 group-hover:translate-x-1">→</span>
+              </Link>
             </div>
 
-            <div className="mt-14 grid gap-6 lg:grid-cols-3">
-              {journalEntries.map((entry) => (
-                  <article key={entry.title} className="rounded-[2rem] border border-white/10 bg-white/4 p-8 backdrop-blur-sm">
-                    <p className="text-sm uppercase tracking-[0.16em] text-white/45">{entry.type}</p>
-                    <h3 className="mt-4 text-2xl leading-tight">{entry.title}</h3>
-                    <p className="mt-5 text-base leading-relaxed text-white/70">{entry.text}</p>
+            {/* Сетка карточек */}
+            <div className="mt-16 grid gap-6 md:grid-cols-2 lg:grid-cols-3">
+              {[
+                { title: "Event Recap", text: "Масштаб, ритм и атмосфера ивента." },
+                { title: "Backstage & Music", text: "Творческий процесс за кулисами." },
+                { title: "Локальные бренды", text: "Презентация идей и пространств." }
+              ].map((item, i) => (
+                  <article key={i} className="rounded-2xl border border-white/10 bg-white/5 p-8 flex flex-col justify-between min-h-[280px]">
+                    <h3 className="text-2xl font-light">{item.title}</h3>
+                    <p className="mt-4 text-white/65">{item.text}</p>
                   </article>
               ))}
             </div>

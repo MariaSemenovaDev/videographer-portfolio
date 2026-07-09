@@ -67,10 +67,7 @@ export default function Footer() {
           </div>
 
           <div className="grid gap-10 md:grid-cols-2 lg:grid-cols-[1.2fr_0.8fr_1fr]">
-            <div>
-              <p className="text-sm uppercase tracking-[0.2em] text-white/55">Обо мне</p>
-              <p className="mt-4 max-w-xl text-lg leading-relaxed text-white/72 font-light">{siteMeta.intro}</p>
-            </div>
+
 
             <div>
               <p className="text-sm uppercase tracking-[0.2em] text-white/55">Навигация</p>
