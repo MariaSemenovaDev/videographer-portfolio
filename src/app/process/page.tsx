@@ -1,42 +1,26 @@
-import { PageTransitionShell } from "@/components/shared/PageTransitionShell";
-import { processSection, processSteps } from "@/data/process";
+import { processSteps } from "@/content/site";
 
 export default function ProcessPage() {
   return (
-    <PageTransitionShell>
-      <main className="page-container px-4 pb-20 pt-28 sm:px-6 sm:pt-36 lg:px-8">
-        <section className="grid gap-8 border-b border-border pb-10 lg:grid-cols-[minmax(0,1fr)_minmax(320px,0.82fr)]">
-          <div className="space-y-4">
-            <p className="eyebrow">{processSection.label}</p>
-            <h1 className="display-title max-w-[11ch] text-[clamp(3rem,7vw,5.6rem)]">
-              {processSection.title}
-            </h1>
-          </div>
-          <p className="meta-text max-w-lg lg:justify-self-end">
-            {processSection.description}
-          </p>
-        </section>
+    <section className="bg-black px-6 py-24 text-white md:px-10 lg:px-14">
+      <div className="mx-auto max-w-7xl">
+        <p className="text-xl uppercase text-white/55">Процесс</p>
+        <h1 className="mt-6 max-w-4xl text-4xl leading-[0.96] md:text-6xl">
+          От первой идеи до финального монтажа я собираю проект так, чтобы он держался не на шаблоне, а на настроении и смысле.
+        </h1>
 
-        <section className="grid gap-4 py-10">
-          {processSteps.map((step) => (
-            <article
-              className="grid gap-5 border border-border bg-[color:rgba(255,252,246,0.58)] p-6 sm:p-8 lg:grid-cols-[88px_minmax(0,1fr)_minmax(280px,0.72fr)] lg:items-start"
-              key={step.id}
-            >
-              <p className="eyebrow">{step.label.split("/")[0]?.trim()}</p>
-              <div className="space-y-4">
-                <p className="eyebrow">{step.label}</p>
-                <h2 className="section-title text-[clamp(1.8rem,3vw,2.75rem)]">
-                  {step.title}
-                </h2>
-              </div>
-              <p className="meta-text max-w-md lg:justify-self-end">
-                {step.summary}
+        <div className="mt-16 grid gap-6 lg:grid-cols-2">
+          {processSteps.map((step, index) => (
+            <article key={step.title} className="rounded-[2rem] border border-white/10 bg-white/4 p-8 backdrop-blur-sm">
+              <p className="text-sm uppercase tracking-[0.16em] text-white/45">
+                Этап {String(index + 1).padStart(2, "0")}
               </p>
+              <h2 className="mt-4 text-3xl">{step.title}</h2>
+              <p className="mt-5 max-w-xl text-lg leading-relaxed text-white/70">{step.text}</p>
             </article>
           ))}
-        </section>
-      </main>
-    </PageTransitionShell>
+        </div>
+      </div>
+    </section>
   );
 }

@@ -12,9 +12,7 @@ const nextConfig = {
   images: {
     unoptimized: true
   },
-  experimental: {
-    typedRoutes: true
-  },
+  typedRoutes: true,
   basePath,
   assetPrefix: basePath || undefined
 };

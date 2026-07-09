@@ -1,32 +1,30 @@
 import type { Metadata } from "next";
-
-import { SiteHeader } from "@/components/navigation/SiteHeader";
-import { PageTransitionProvider } from "@/components/shared/PageTransitionShell";
-
+import Footer from "@/components/Footer";
 import "./globals.css";
+import Menu from "@/components/Menu";
+import SmoothScroll from "@/components/ScrollSmoother";
+import { siteMeta } from "@/content/site";
 
 export const metadata: Metadata = {
-  title: {
-    default: "Editorial Portfolio",
-    template: "%s | Editorial Portfolio"
-  },
-  description:
-    "Warm editorial portfolio interface with animated navigation, neutral placeholders, and room for future media assets.",
-  metadataBase: new URL("https://example.com")
+  title: siteMeta.name,
+  description: siteMeta.intro,
 };
 
 export default function RootLayout({
-  children
+  children,
 }: Readonly<{
   children: React.ReactNode;
 }>) {
   return (
     <html lang="ru">
-      <body className="editorial-theme">
-        <PageTransitionProvider>
-          <SiteHeader />
-          {children}
-        </PageTransitionProvider>
+      <body className="antialiased" suppressHydrationWarning>
+        <Menu />
+        <SmoothScroll>
+          <div className="mt-[10vh] pb-[10vh]">
+            {children}
+          </div>
+          <Footer />
+        </SmoothScroll>
       </body>
     </html>
   );

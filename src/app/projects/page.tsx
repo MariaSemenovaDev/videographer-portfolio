@@ -1,72 +1,39 @@
-import { PageTransitionShell } from "@/components/shared/PageTransitionShell";
-import { MediaFrame } from "@/components/shared/media-frame";
-import { projectCards, projectsSection } from "@/data/projects";
+import { featuredProjects } from "@/content/site";
 
 export default function ProjectsPage() {
-  const [featuredProject, ...gridProjects] = projectCards;
-
   return (
-    <PageTransitionShell>
-      <main className="page-container px-4 pb-20 pt-28 sm:px-6 sm:pt-36 lg:px-8">
-        <section className="grid gap-8 border-b border-border pb-10 lg:grid-cols-[minmax(0,1fr)_minmax(300px,0.8fr)]">
-          <div className="space-y-4">
-            <p className="eyebrow">{projectsSection.label}</p>
-            <h1 className="display-title max-w-[11ch] text-[clamp(3rem,7vw,5.8rem)]">
-              {projectsSection.title}
-            </h1>
-          </div>
-          <p className="meta-text max-w-lg lg:justify-self-end">
-            {projectsSection.description}
-          </p>
-        </section>
+    <section className="bg-[#f7f2ea] px-6 py-24 md:px-10 lg:px-14">
+      <div className="mx-auto max-w-7xl">
+        <p className="text-xl uppercase">Проекты</p>
+        <h1 className="mt-6 max-w-4xl text-4xl leading-[0.96] md:text-6xl">
+          Видео для людей, событий и брендов, где важны не только кадры, но и внутреннее ощущение истории.
+        </h1>
 
-        <section className="grid gap-4 py-10">
-          <article className="grid overflow-hidden border border-border lg:grid-cols-[minmax(0,1.15fr)_minmax(320px,0.85fr)]">
-            <MediaFrame
-              asset={featuredProject.asset}
-              className="h-full min-h-[22rem] w-full object-cover"
-            />
-            <div className="grid gap-5 bg-[color:rgba(255,252,246,0.58)] p-6 sm:p-8">
-              <p className="eyebrow">
-                {featuredProject.label} / {featuredProject.year}
-              </p>
-              <h2 className="section-title text-[clamp(2rem,4vw,3.35rem)]">
-                {featuredProject.title}
-              </h2>
-              <p className="meta-text max-w-md">{featuredProject.summary}</p>
-            </div>
-          </article>
+        <div className="mt-16 grid gap-6">
+          {featuredProjects.map((project) => (
+            <article key={project.slug} className="grid gap-8 rounded-[2rem] bg-white p-8 lg:grid-cols-[0.8fr_1.2fr]">
+              <div className="rounded-[1.5rem] bg-[linear-gradient(180deg,#ece7df_0%,#d9d1c5_100%)] p-8">
+                <p className="text-sm uppercase tracking-[0.16em] text-black/45">
+                  {project.category} / {project.year}
+                </p>
+                <h2 className="mt-4 text-3xl">{project.title}</h2>
+                <p className="mt-8 text-sm uppercase tracking-[0.16em] text-black/45">{project.location}</p>
+              </div>
 
-          <div className="grid gap-4 md:grid-cols-2 xl:grid-cols-3">
-            {gridProjects.map((project, index) => (
-              <article
-                className="grid overflow-hidden border border-border"
-                key={project.id}
-                style={{
-                  background:
-                    index === 1
-                      ? "color-mix(in srgb, var(--color-powder-blue, #a5c8eb) 16%, var(--color-bone-white, #fffef7) 84%)"
-                      : "rgba(255,252,246,0.56)"
-                }}
-              >
-                <MediaFrame
-                  asset={project.asset}
-                  className="aspect-[4/5] w-full object-cover"
-                />
-                <div className="space-y-4 p-5 sm:p-6">
-                  <p className="eyebrow">
-                    {project.label} / {project.year}
-                  </p>
-                  <h2 className="section-title text-[clamp(1.8rem,3vw,2.4rem)]">
-                    {project.title}
-                  </h2>
-                  <p className="meta-text">{project.summary}</p>
+              <div className="flex flex-col justify-between">
+                <p className="max-w-2xl text-xl leading-relaxed text-black/65">{project.description}</p>
+                <div className="mt-8 flex flex-wrap gap-3">
+                  {project.tags.map((tag) => (
+                    <span key={tag} className="rounded-full border border-black/10 px-4 py-2 text-sm uppercase tracking-[0.12em] text-black/55">
+                      {tag}
+                    </span>
+                  ))}
                 </div>
-              </article>
-            ))}
-          </div>
-        </section>
-      </main>
-    </PageTransitionShell>
+              </div>
+            </article>
+          ))}
+        </div>
+      </div>
+    </section>
   );
 }

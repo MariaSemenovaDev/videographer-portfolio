@@ -1,75 +1,63 @@
-import { PageTransitionShell } from "@/components/shared/PageTransitionShell";
-import { siteContent } from "@/data/site";
+import { footerLinks, siteMeta } from "@/content/site";
 
 export default function ContactPage() {
   return (
-    <PageTransitionShell>
-      <main className="page-container px-4 pb-20 pt-28 sm:px-6 sm:pt-36 lg:px-8">
-        <section className="grid gap-10 border-b border-border pb-10 lg:grid-cols-[minmax(0,1.1fr)_minmax(280px,0.9fr)]">
-          <div className="space-y-5">
-            <p className="eyebrow">{siteContent.contact.ctaLabel}</p>
-            <h1 className="display-title max-w-[11ch] text-[clamp(3.25rem,8vw,6rem)]">
-              {siteContent.contact.title}
-            </h1>
+    <section className="bg-[#111111] px-6 py-24 text-white md:px-10 lg:px-14">
+      <div className="mx-auto grid max-w-7xl gap-12 lg:grid-cols-[0.9fr_1.1fr]">
+        <div>
+          <p className="text-xl uppercase text-white/55">Контакты</p>
+          <h1 className="mt-6 text-4xl leading-[0.96] md:text-6xl">
+            Если у вас есть дата, идея или задача для бренда, можно обсудить проект напрямую.
+          </h1>
+          <p className="mt-8 max-w-xl text-lg leading-relaxed text-white/72">{siteMeta.intro}</p>
+        </div>
+
+        <div className="rounded-[2rem] border border-white/10 bg-white/4 p-8 backdrop-blur-sm md:p-10">
+          <div className="grid gap-8 md:grid-cols-2">
+            <div>
+              <p className="text-sm uppercase tracking-[0.16em] text-white/45">Email</p>
+              <a href={`mailto:${siteMeta.email}`} className="mt-3 block text-2xl transition-colors hover:text-white/70">
+                {siteMeta.email}
+              </a>
+            </div>
+
+            <div>
+              <p className="text-sm uppercase tracking-[0.16em] text-white/45">Телефон</p>
+              <a
+                href={`tel:${siteMeta.phone.replace(/[^\d+]/g, "")}`}
+                className="mt-3 block text-2xl transition-colors hover:text-white/70"
+              >
+                {siteMeta.phone}
+              </a>
+            </div>
+
+            <div>
+              <p className="text-sm uppercase tracking-[0.16em] text-white/45">Город</p>
+              <p className="mt-3 text-2xl">{siteMeta.city}</p>
+            </div>
+
+            <div>
+              <p className="text-sm uppercase tracking-[0.16em] text-white/45">Соцсети</p>
+              <div className="mt-3 flex flex-col gap-2 text-2xl">
+                {footerLinks
+                  .filter((link) => link.href.startsWith("http"))
+                  .map((link) => (
+                    <a key={link.label} href={link.href} target="_blank" rel="noreferrer" className="transition-colors hover:text-white/70">
+                      {link.label}
+                    </a>
+                  ))}
+              </div>
+            </div>
           </div>
-          <p className="max-w-lg text-base leading-7 text-muted lg:justify-self-end">
-            {siteContent.contact.intro}
-          </p>
-        </section>
 
-        <section className="grid gap-4 py-10 lg:grid-cols-[minmax(0,1fr)_minmax(280px,0.72fr)]">
-          <article className="grid gap-10 border border-border bg-[color:rgba(255,252,246,0.6)] p-6 sm:p-8">
-            <div className="space-y-3">
-              <p className="eyebrow">Contact Notes</p>
-              <h2 className="section-title text-[clamp(2rem,4vw,3.25rem)]">
-                Quiet inquiries, compact briefs, clear production scope.
-              </h2>
-            </div>
-            <div className="grid gap-8 sm:grid-cols-2">
-              <div>
-                <p className="eyebrow">Email</p>
-                <a
-                  className="mt-3 block text-[clamp(1.25rem,2vw,1.6rem)] font-display font-[300] tracking-tight"
-                  href={`mailto:${siteContent.contact.email}`}
-                >
-                  {siteContent.contact.email}
-                </a>
-              </div>
-              <div>
-                <p className="eyebrow">Availability</p>
-                <p className="meta-text mt-3">
-                  Editorial films, portraits, branded motion studies, and
-                  quietly directed documentary work.
-                </p>
-              </div>
-            </div>
-          </article>
-
-          <aside className="grid gap-5 border border-border p-6 sm:p-8">
-            <p className="eyebrow">Working Rhythm</p>
-            <div className="space-y-5">
-              <div className="border-t border-border pt-4">
-                <p className="eyebrow">01</p>
-                <p className="meta-text mt-2">
-                  First note with project intent, timing, and location.
-                </p>
-              </div>
-              <div className="border-t border-border pt-4">
-                <p className="eyebrow">02</p>
-                <p className="meta-text mt-2">
-                  Shared references, production outline, and filming window.
-                </p>
-              </div>
-              <div className="border-t border-border pt-4">
-                <p className="eyebrow">03</p>
-                <p className="meta-text mt-2">
-                  Edit review, final polish, and delivery of motion assets.
-                </p>
-              </div>
-            </div>
-          </aside>
-        </section>
-      </main>
-    </PageTransitionShell>
+          <div className="mt-12 border-t border-white/10 pt-8">
+            <p className="text-sm uppercase tracking-[0.16em] text-white/45">Обычно полезно написать сразу</p>
+            <p className="mt-4 max-w-2xl text-lg leading-relaxed text-white/72">
+              Формат съёмки, дату, город, примерный хронометраж, нужна ли только съёмка или ещё монтаж, цвет, вертикальные версии и короткие ролики для соцсетей.
+            </p>
+          </div>
+        </div>
+      </div>
+    </section>
   );
 }
