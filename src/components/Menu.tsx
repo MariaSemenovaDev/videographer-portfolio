@@ -3,10 +3,22 @@
 import { useGSAP } from '@gsap/react';
 import gsap from 'gsap';
 import Link from 'next/link';
+import type { Route } from 'next';
 import { usePathname } from 'next/navigation';
 import React, { useEffect, useRef, useState } from 'react';
 
-import { footerLinks, navigationLinks, siteMeta } from '@/content/site';
+type MenuProps = {
+  footerLinks: Array<{ href: string; label: string }>;
+  navigationLinks: Array<{ path: Route; label: string }>;
+  siteMeta: {
+    shortName: string;
+    name: string;
+    intro: string;
+    email: string;
+    phone: string;
+    city: string;
+  };
+};
 
 const menuDescriptions: Record<string, string> = {
   '/': 'Главная страница с шоу-рилом, подборкой работ и ключевыми акцентами.',
@@ -16,13 +28,42 @@ const menuDescriptions: Record<string, string> = {
   '/contact': 'Контакты для бронирования даты, обсуждения идеи или запроса стоимости.',
 };
 
-export default function Menu() {
+export default function Menu({
+  footerLinks,
+  navigationLinks,
+  siteMeta,
+}: MenuProps) {
   const pathname = usePathname();
 
-  return <MenuContent key={pathname} pathname={pathname} />;
+  return (
+    <MenuContent
+      key={pathname}
+      pathname={pathname}
+      footerLinks={footerLinks}
+      navigationLinks={navigationLinks}
+      siteMeta={siteMeta}
+    />
+  );
 }
 
-function MenuContent({ pathname }: { pathname: string }) {
+function MenuContent({
+  pathname,
+  footerLinks,
+  navigationLinks,
+  siteMeta,
+}: {
+  pathname: string;
+  footerLinks: Array<{ href: string; label: string }>;
+  navigationLinks: Array<{ path: Route; label: string }>;
+  siteMeta: {
+    shortName: string;
+    name: string;
+    intro: string;
+    email: string;
+    phone: string;
+    city: string;
+  };
+}) {
   const containerRef = useRef<HTMLDivElement>(null);
   const tl = useRef<gsap.core.Timeline | null>(null);
   const [isMenuOpen, setIsMenuOpen] = useState(false);

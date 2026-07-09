@@ -1,11 +1,19 @@
 import {
-  reportageRates,
-  reportageServicesNote,
-  serviceExtras,
-  servicePackages,
-} from "@/content/site";
+  getReportageRatesData,
+  getReportageServicesNoteData,
+  getServiceExtrasData,
+  getServicePackagesData,
+} from "@/sanity/fetchers";
 
-export default function ServicesPage() {
+export default async function ServicesPage() {
+  const [servicePackages, serviceExtras, reportageRates, reportageServicesNote] =
+    await Promise.all([
+      getServicePackagesData(),
+      getServiceExtrasData(),
+      getReportageRatesData(),
+      getReportageServicesNoteData(),
+    ]);
+
   return (
     <section className="bg-[#f8f5ef] px-6 py-24 md:px-10 lg:px-14">
       <div className="mx-auto max-w-7xl">

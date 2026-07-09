@@ -5,11 +5,24 @@ import gsap from "gsap";
 import ScrollTrigger from "gsap/ScrollTrigger";
 import Link from "next/link";
 
-import { featuredProjects } from "@/content/site";
-
 gsap.registerPlugin(ScrollTrigger);
 
-export default function HorizontalScrollSection() {
+type FeaturedProject = {
+  slug: string;
+  title: string;
+  category: string;
+  year: string;
+  location: string;
+  tags: string[];
+  description: string;
+  image: string;
+};
+
+export default function HorizontalScrollSection({
+  featuredProjects,
+}: {
+  featuredProjects: FeaturedProject[];
+}) {
   const containerRef = useRef<HTMLDivElement>(null);
   const sectionsRef = useRef<HTMLDivElement>(null);
   const progressLineRef = useRef<HTMLDivElement>(null);
@@ -64,7 +77,7 @@ export default function HorizontalScrollSection() {
     }, containerRef);
 
     return () => ctx.revert();
-  }, []);
+  }, [featuredProjects.length]);
 
   return (
     <section ref={containerRef} className="relative flex h-screen flex-col justify-between overflow-hidden bg-[#0b0b0b] pt-14 pb-6 md:pb-8">
@@ -100,7 +113,7 @@ export default function HorizontalScrollSection() {
   );
 }
 
-type PanelProps = (typeof featuredProjects)[number] & {
+type PanelProps = FeaturedProject & {
   index: number;
   total: number;
 };

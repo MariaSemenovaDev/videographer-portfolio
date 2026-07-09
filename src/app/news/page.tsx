@@ -1,6 +1,8 @@
-import { journalEntries } from "@/content/site";
+import { getJournalEntriesData } from "@/sanity/fetchers";
 
-export default function NewsPage() {
+export default async function NewsPage() {
+  const journalEntries = await getJournalEntriesData();
+
   return (
     <section className="bg-[#f8f5ef] px-6 py-24 md:px-10 lg:px-14">
       <div className="mx-auto max-w-7xl">

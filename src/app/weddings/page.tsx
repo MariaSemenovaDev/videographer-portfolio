@@ -1,6 +1,8 @@
-import { featuredProjects } from "@/content/site";
+import { getFeaturedProjectsData } from "@/sanity/fetchers";
 
-export default function WeddingsPage() {
+export default async function WeddingsPage() {
+  const featuredProjects = await getFeaturedProjectsData();
+
   return (
     <section className="bg-[#f7f2ea] px-6 py-24 md:px-10 lg:px-14">
       <div className="mx-auto max-w-7xl">

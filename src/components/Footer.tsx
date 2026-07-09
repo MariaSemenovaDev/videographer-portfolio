@@ -1,10 +1,32 @@
 "use client";
 
 import Link from "next/link";
+import type { Route } from "next";
 import { useEffect, useRef, useState } from "react";
-import { featuredProjects, footerLinks, navigationLinks, siteMeta } from "@/content/site";
 
-export default function Footer() {
+type FooterProps = {
+  featuredProjects: Array<{
+    slug: string;
+    title: string;
+    category: string;
+    location: string;
+  }>;
+  footerLinks: Array<{ href: string; label: string }>;
+  navigationLinks: Array<{ path: Route; label: string }>;
+  siteMeta: {
+    name: string;
+    email: string;
+    phone: string;
+    city: string;
+  };
+};
+
+export default function Footer({
+  featuredProjects,
+  footerLinks,
+  navigationLinks,
+  siteMeta,
+}: FooterProps) {
   const [isVisible, setIsVisible] = useState(false);
   const footerRef = useRef<HTMLElement>(null);
 

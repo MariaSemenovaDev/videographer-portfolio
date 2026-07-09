@@ -1,6 +1,11 @@
-import { footerLinks, siteMeta } from "@/content/site";
+import { getFooterLinksData, getSiteMetaData } from "@/sanity/fetchers";
 
-export default function ContactPage() {
+export default async function ContactPage() {
+  const [siteMeta, footerLinks] = await Promise.all([
+    getSiteMetaData(),
+    getFooterLinksData(),
+  ]);
+
   return (
     <section className="bg-[#111111] px-6 py-24 text-white md:px-10 lg:px-14">
       <div className="mx-auto grid max-w-7xl gap-12 lg:grid-cols-[0.9fr_1.1fr]">
