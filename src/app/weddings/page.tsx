@@ -1,6 +1,6 @@
 import { featuredProjects } from "@/content/site";
 
-export default function ProjectsPage() {
+export default function WeddingsPage() {
   return (
     <section className="bg-[#f7f2ea] px-6 py-24 md:px-10 lg:px-14">
       <div className="mx-auto max-w-7xl">

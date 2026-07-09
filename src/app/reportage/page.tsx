@@ -1,6 +1,6 @@
 import { processSteps } from "@/content/site";
 
-export default function ProcessPage() {
+export default function ReportagePage() {
   return (
     <section className="bg-black px-6 py-24 text-white md:px-10 lg:px-14">
       <div className="mx-auto max-w-7xl">
