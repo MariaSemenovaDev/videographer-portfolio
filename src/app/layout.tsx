@@ -1,6 +1,6 @@
 import type { Metadata } from "next";
 
-import { SiteNavigation } from "@/components/navigation/site-navigation";
+import { SiteHeader } from "@/components/navigation/SiteHeader";
 
 import "./globals.css";
 
@@ -22,7 +22,7 @@ export default function RootLayout({
   return (
     <html lang="ru">
       <body className="editorial-theme">
-        <SiteNavigation />
+        <SiteHeader />
         {children}
       </body>
     </html>

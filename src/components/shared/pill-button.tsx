@@ -1,3 +1,5 @@
+import { forwardRef } from "react";
+
 import { cn } from "@/lib/cn";
 
 type PillButtonProps = {
@@ -5,16 +7,16 @@ type PillButtonProps = {
   children: React.ReactNode;
 } & React.ButtonHTMLAttributes<HTMLButtonElement>;
 
-export function PillButton({ className, children, ...props }: PillButtonProps) {
-  return (
-    <button
-      className={cn(
-        "pill-button motion-safe-fade",
-        className
-      )}
-      {...props}
-    >
-      {children}
-    </button>
-  );
-}
+export const PillButton = forwardRef<HTMLButtonElement, PillButtonProps>(
+  function PillButton({ className, children, ...props }, ref) {
+    return (
+      <button
+        className={cn("pill-button motion-safe-fade", className)}
+        ref={ref}
+        {...props}
+      >
+        {children}
+      </button>
+    );
+  }
+);
