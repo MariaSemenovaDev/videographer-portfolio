@@ -1,23 +1,25 @@
+import { newsItems, newsSection } from "@/data/news";
+
 export default function NewsPage() {
   return (
-    <main className="mx-auto min-h-screen w-full max-w-6xl px-5 pb-16 pt-28 sm:px-8 sm:pt-36">
-      <div className="grid gap-4 md:grid-cols-2">
-        <section className="border border-border bg-white/45 p-8">
-          <p className="text-sm uppercase tracking-[0.24em] text-muted">News</p>
-          <h1 className="mt-8 font-display text-5xl tracking-editorial sm:text-6xl">
-            Updates can land here as editorial notes and release entries.
-          </h1>
-        </section>
-        <section className="border border-border bg-white/55 p-8">
-          <p className="text-xs uppercase tracking-[0.24em] text-muted">
-            Placeholder
-          </p>
-          <p className="mt-8 text-base leading-7 text-muted">
-            Reserve this panel for future imagery, diagrams, or attached design
-            files. прикреплённые файлы: не указаны
-          </p>
-        </section>
-      </div>
+    <main className="page-container pb-20 pt-28 sm:pt-36">
+      <section className="space-y-4 border-b border-border pb-10">
+        <p className="eyebrow">{newsSection.label}</p>
+        <h1 className="section-title max-w-4xl">{newsSection.title}</h1>
+        <p className="meta-text max-w-2xl">{newsSection.description}</p>
+      </section>
+
+      <section className="grid gap-4 py-10 md:grid-cols-2 xl:grid-cols-3">
+        {newsItems.map((item) => (
+          <article className="surface-panel p-6" key={item.id}>
+            <p className="eyebrow">{item.label}</p>
+            <h2 className="section-title mt-8 text-[clamp(1.75rem,2.8vw,2.5rem)]">
+              {item.title}
+            </h2>
+            <p className="meta-text mt-6">{item.summary}</p>
+          </article>
+        ))}
+      </section>
     </main>
   );
 }

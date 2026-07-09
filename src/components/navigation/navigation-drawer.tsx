@@ -6,6 +6,7 @@ import gsap from "gsap";
 import { useGSAP } from "@gsap/react";
 
 import { navigationItems } from "@/data/navigation";
+import { siteContent } from "@/data/site";
 
 type NavigationDrawerProps = {
   isOpen: boolean;
@@ -125,11 +126,10 @@ export function NavigationDrawer({
         <div className="mx-auto flex max-w-6xl flex-col gap-12">
           <div className="flex flex-col gap-4 sm:flex-row sm:items-start sm:justify-between">
             <p className="max-w-sm text-sm uppercase tracking-[0.24em] text-muted">
-              navigation
+              {siteContent.navigation.drawerEyebrow}
             </p>
             <p className="max-w-md text-sm text-muted">
-              Placeholder blocks remain intentional until real content and
-              assets are provided. прикреплённые файлы: не указаны
+              {siteContent.navigation.drawerNote}
             </p>
           </div>
 

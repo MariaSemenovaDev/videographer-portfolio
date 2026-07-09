@@ -1,27 +1,41 @@
-export const navigationItems = [
+import { routes, type AppRoute } from "@/lib/routes";
+
+export type NavigationItem = {
+  description: string;
+  eyebrow: string;
+  href: AppRoute;
+  label: string;
+};
+
+export const navigationItems: NavigationItem[] = [
   {
-    href: "/",
-    label: "Home",
-    eyebrow: "00"
+    description: "Landing page with hero, project preview, and editorial notes.",
+    eyebrow: "00",
+    href: routes.home,
+    label: "Home"
   },
   {
-    href: "/projects",
-    label: "Projects",
-    eyebrow: "01"
+    description: "Grid of placeholder project entries for future case studies.",
+    eyebrow: "01",
+    href: routes.projects,
+    label: "Projects"
   },
   {
-    href: "/process",
-    label: "Process",
-    eyebrow: "02"
+    description: "Process notes, working method, and production structure.",
+    eyebrow: "02",
+    href: routes.process,
+    label: "Process"
   },
   {
-    href: "/news",
-    label: "News",
-    eyebrow: "03"
+    description: "Editorial notes, updates, and short release-style entries.",
+    eyebrow: "03",
+    href: routes.news,
+    label: "News"
   },
   {
-    href: "/contact",
-    label: "Contact",
-    eyebrow: "04"
+    description: "Neutral contact scaffold ready for inquiries and future details.",
+    eyebrow: "04",
+    href: routes.contact,
+    label: "Contact"
   }
-] as const;
+];

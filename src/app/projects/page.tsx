@@ -1,35 +1,31 @@
-const projectCards = [
-  "Project placeholder",
-  "Motion experiment placeholder",
-  "Editorial layout placeholder"
-];
+import { MediaFrame } from "@/components/shared/media-frame";
+import { projectCards, projectsSection } from "@/data/projects";
 
 export default function ProjectsPage() {
   return (
-    <main className="mx-auto min-h-screen w-full max-w-6xl px-5 pb-16 pt-28 sm:px-8 sm:pt-36">
-      <div className="flex max-w-4xl flex-col gap-6">
-        <p className="text-sm uppercase tracking-[0.24em] text-muted">
-          Projects
-        </p>
-        <h1 className="font-display text-5xl tracking-editorial sm:text-6xl">
-          A sharp-corner showcase ready for original work and custom assets.
-        </h1>
-      </div>
+    <main className="page-container pb-20 pt-28 sm:pt-36">
+      <section className="space-y-4 border-b border-border pb-10">
+        <p className="eyebrow">{projectsSection.label}</p>
+        <h1 className="section-title max-w-4xl">{projectsSection.title}</h1>
+        <p className="meta-text max-w-2xl">{projectsSection.description}</p>
+      </section>
 
-      <div className="mt-12 grid gap-4 md:grid-cols-3">
-        {projectCards.map((title) => (
-          <article className="border border-border bg-white/50 p-6" key={title}>
-            <div className="aspect-[4/5] border border-dashed border-border bg-canvas" />
-            <h2 className="mt-6 font-display text-3xl tracking-editorial">
-              {title}
-            </h2>
-            <p className="mt-3 text-sm leading-6 text-muted">
-              Replace this block with original visuals from `public/media`.
-              прикреплённые файлы: не указаны
-            </p>
+      <section className="grid gap-4 py-10 md:grid-cols-2 xl:grid-cols-3">
+        {projectCards.map((project) => (
+          <article className="surface-panel overflow-hidden" key={project.id}>
+            <MediaFrame asset={project.asset} />
+            <div className="space-y-4 p-5">
+              <p className="eyebrow">
+                {project.label} / {project.year}
+              </p>
+              <h2 className="section-title text-[clamp(1.8rem,3vw,2.4rem)]">
+                {project.title}
+              </h2>
+              <p className="meta-text">{project.summary}</p>
+            </div>
           </article>
         ))}
-      </div>
+      </section>
     </main>
   );
 }
